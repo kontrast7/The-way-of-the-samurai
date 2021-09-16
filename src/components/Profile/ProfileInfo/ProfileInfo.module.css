@@ -1,0 +1,17 @@
+.avatar {
+  border-radius: 20px;
+  width: 180px;
+}
+
+.userInfo {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
+.description {
+  grid-area: info;
+}
+
+.avatar_block {
+  grid-area: foto;
+}
