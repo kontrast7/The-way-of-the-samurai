@@ -12,17 +12,10 @@ import { FC } from "react";
 
 type PropsTypes = {
   state: RootStateType;
-  addMessage: () => void;
-  updateNewMessageText: (newText: string) => void;
   dispatch: (action: any) => void;
 };
 
-export const App: FC<PropsTypes> = ({
-  state,
-  addMessage,
-  updateNewMessageText,
-  dispatch,
-}) => {
+export const App: FC<PropsTypes> = ({ state, dispatch }) => {
   const {
     profilePage: { posts, messageForNewPost },
     dialogPage: { dialogs, messages, newMessageText },
@@ -41,8 +34,7 @@ export const App: FC<PropsTypes> = ({
                 <Message
                   messages={messages}
                   dialogs={dialogs}
-                  addMessage={addMessage}
-                  updateNewMessageText={updateNewMessageText}
+                  dispatch={dispatch}
                   newMessageText={newMessageText}
                 />
               )}

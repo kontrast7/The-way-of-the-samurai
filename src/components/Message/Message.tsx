@@ -2,13 +2,17 @@ import React, { KeyboardEvent } from "react";
 import { DialogItem } from "./Dialog/Dialog";
 import s from "./Message.module.css";
 import { MessageItem } from "./MessageItem/MessageItem";
-import { DialogType, MessageType } from "../Redux/State";
+import {
+  addMessageActionCreator,
+  DialogType,
+  MessageType,
+  onMessageChangeActionCreator,
+} from "../Redux/State";
 
 type PropsType = {
   dialogs: Array<DialogType>;
   messages: Array<MessageType>;
-  addMessage: () => void;
-  updateNewMessageText: (newText: string) => void;
+  dispatch: (action: any) => void;
   newMessageText: string;
 };
 
@@ -24,13 +28,13 @@ export const Message = (props: PropsType) => {
   let newMessageElement = React.createRef<HTMLInputElement>();
 
   const addMessage = () => {
-    props.addMessage();
+    props.dispatch(addMessageActionCreator());
   };
 
   let onMessageChange = () => {
     if (newMessageElement.current) {
       let text = newMessageElement.current.value;
-      props.updateNewMessageText(text);
+      props.dispatch(onMessageChangeActionCreator(text));
     }
   };
 
