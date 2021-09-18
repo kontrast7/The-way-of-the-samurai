@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import React from "react";
 import App from "./App";
 
-let renderTree = () => {
+let renderAllTree = () => {
   ReactDOM.render(
     <React.StrictMode>
       <App state={store.getState()} dispatch={store.dispatch.bind(store)} />
@@ -13,6 +13,6 @@ let renderTree = () => {
   );
 };
 
-renderTree();
+renderAllTree();
 
-store.subscribe(renderTree);
+store.subscribe(renderAllTree);

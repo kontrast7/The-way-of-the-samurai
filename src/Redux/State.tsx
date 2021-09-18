@@ -31,16 +31,18 @@ export type RootStateType = {
 
 export type StoreType = {
   _state: RootStateType;
-  renderTree: () => void;
+  _renderTree: () => void;
   subscribe: (observer: () => void) => void;
   getState: any; //?????
   dispatch: (action: any) => void; //?????
 };
 
-const ADD_POST = "ADD_POST";
-const ADD_MESSAGE = "ADD_MESSAGE";
-const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT";
-const UPDATE_NEW_MESSAGE_TEXT = "UPDATE_NEW_MESSAGE_TEXT";
+const actionsNames = {
+  ADD_POST:"ADD_POST",
+  ADD_MESSAGE: "ADD_MESSAGE",
+  UPDATE_NEW_POST_TEXT: "UPDATE_NEW_POST_TEXT",
+  UPDATE_NEW_MESSAGE_TEXT: "UPDATE_NEW_MESSAGE_TEXT"
+}
 
 let store: StoreType = {
   _state: {
@@ -120,18 +122,17 @@ let store: StoreType = {
       ],
     },
   },
+  _renderTree() {
+    console.log("Render");
+  },
   getState() {
     return this._state;
   },
   subscribe(observer: () => void) {
-    this.renderTree = observer; // наблюдатель
+    this._renderTree = observer; // наблюдатель
   },
-  renderTree() {
-    console.log("Render");
-  },
-
   dispatch(action) {
-    if (action.type === ADD_POST) {
+    if (action.type === actionsNames.ADD_POST) {
       let newPost: PostsType = {
         id: v1(),
         text: this._state.profilePage.messageForNewPost,
@@ -139,40 +140,40 @@ let store: StoreType = {
       };
       this._state.profilePage.posts.unshift(newPost);
       this._state.profilePage.messageForNewPost = "";
-      this.renderTree();
+      this._renderTree();
     }
-    else if (action.type === UPDATE_NEW_POST_TEXT) {
+    else if (action.type === actionsNames.UPDATE_NEW_POST_TEXT) {
       this._state.profilePage.messageForNewPost = action.newText;
-      this.renderTree();
+      this._renderTree();
     }
-    else if (action.type === ADD_MESSAGE) {
+    else if (action.type === actionsNames.ADD_MESSAGE) {
       let newMessage: MessageType = {
         id: v1(),
         message: this._state.dialogPage.newMessageText,
       };
       this._state.dialogPage.messages.push(newMessage);
       this._state.dialogPage.newMessageText = "";
-      this.renderTree();
+      this._renderTree();
     }
-    else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
+    else if (action.type === actionsNames.UPDATE_NEW_MESSAGE_TEXT) {
       this._state.dialogPage.newMessageText = action.newText;
-      this.renderTree();
+      this._renderTree();
     }
   },
 };
 
-export const addMessageActionCreator = () => ({type: ADD_MESSAGE});
+export const addMessageActionCreator = () => ({type: actionsNames.ADD_MESSAGE});
 export const onMessageChangeActionCreator = (text: string) => {
   return {
-    type: UPDATE_NEW_MESSAGE_TEXT,
+    type: actionsNames.UPDATE_NEW_MESSAGE_TEXT,
     newText: text,
   };
 };
 
-export const addPostActionCreator = () => ({type: ADD_POST});
+export const addPostActionCreator = () => ({type: actionsNames.ADD_POST});
 export const onPostChangeActionCreator = (text: string) => {
   return {
-    type: UPDATE_NEW_POST_TEXT,
+    type: actionsNames.UPDATE_NEW_POST_TEXT,
     newText: text,
   };
 };

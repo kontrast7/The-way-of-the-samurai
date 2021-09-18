@@ -1,29 +1,36 @@
-import React from "react";
+import React, { ChangeEvent, KeyboardEvent } from "react";
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
-import {addPostActionCreator, onPostChangeActionCreator, PostsType} from "../../../Redux/State";
+import {
+  addPostActionCreator,
+  onPostChangeActionCreator,
+  ProfilePageType,
+} from "../../../Redux/State";
 
 type PropsType = {
-  posts: Array<PostsType>;
-  messageForNewPost: string;
+  profilePage: ProfilePageType;
   dispatch: (action: any) => void;
 };
 
 export const MyPosts = (props: PropsType) => {
-  let postsRender = props.posts.map((m) => (
+  let postsRender = props.profilePage.posts.map((m) => (
     <Post key={m.id} text={m.text} likes={m.likes} />
   ));
 
-  let newPostElement = React.createRef<HTMLTextAreaElement>();
-
   const addPost = () => {
-    props.dispatch(addPostActionCreator());
+    if (props.profilePage.messageForNewPost.trim() !== "") {
+      props.dispatch(addPostActionCreator());
+    }
   };
 
-  let onPostChange = () => {
-    if (newPostElement.current) {
-      let text = newPostElement.current.value;
-      props.dispatch(onPostChangeActionCreator(text));
+  const onPostChange = (e: ChangeEvent<HTMLInputElement>) => {
+    let text = e.currentTarget.value;
+    props.dispatch(onPostChangeActionCreator(text));
+  };
+
+  const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      addPost();
     }
   };
 
@@ -32,11 +39,12 @@ export const MyPosts = (props: PropsType) => {
       <h2>Main posts</h2>
       <div>
         <div>
-          <textarea
-            ref={newPostElement}
+          <input
+            placeholder={"Enter your post..."}
             className={s.textarea}
-            value={props.messageForNewPost}
+            value={props.profilePage.messageForNewPost}
             onChange={onPostChange}
+            onKeyPress={onKeyPressHandler}
           />
         </div>
         <div className={s.buttons}>

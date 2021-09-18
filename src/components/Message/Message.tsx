@@ -1,41 +1,35 @@
-import React, { KeyboardEvent } from "react";
+import React, { ChangeEvent, KeyboardEvent } from "react";
 import { DialogItem } from "./Dialog/Dialog";
 import s from "./Message.module.css";
 import { MessageItem } from "./MessageItem/MessageItem";
 import {
-  addMessageActionCreator,
-  DialogType,
-  MessageType,
+  addMessageActionCreator, DialogPageType,
   onMessageChangeActionCreator,
 } from "../../Redux/State";
 
 type PropsType = {
-  dialogs: Array<DialogType>;
-  messages: Array<MessageType>;
   dispatch: (action: any) => void;
-  newMessageText: string;
+  dialogPage: DialogPageType
+
 };
 
 export const Message = (props: PropsType) => {
-  let dialogRender = props.dialogs.map((m) => {
+
+  let dialogRender = props.dialogPage.dialogs.map((m) => {
     return <DialogItem dialog={m} />;
   });
 
-  let messageRender = props.messages.map((m) => {
+  let messageRender = props.dialogPage.messages.map((m) => {
     return <MessageItem messages={m} />;
   });
-
-  let newMessageElement = React.createRef<HTMLInputElement>();
 
   const addMessage = () => {
     props.dispatch(addMessageActionCreator());
   };
 
-  let onMessageChange = () => {
-    if (newMessageElement.current) {
-      let text = newMessageElement.current.value;
-      props.dispatch(onMessageChangeActionCreator(text));
-    }
+  const onMessageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    let text = e.target.value;
+    props.dispatch(onMessageChangeActionCreator(text));
   };
 
   const onKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -51,10 +45,10 @@ export const Message = (props: PropsType) => {
       <div></div>
       <div className={s.input_wrapper}>
         <input
-          onKeyPress={onKeyPress}
-          ref={newMessageElement}
-          value={props.newMessageText}
+          placeholder={"Enter your message..."}
+          value={props.dialogPage.newMessageText}
           onChange={onMessageChange}
+          onKeyPress={onKeyPress}
           className={s.input}
         />
         <button

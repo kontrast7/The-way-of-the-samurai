@@ -6,7 +6,7 @@ import { News } from "./components/News/News";
 import { Music } from "./components/Music/Music";
 import { Settings } from "./components/Settings/Settings";
 import { Profile } from "./components/Profile/Profile";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Redirect, Route } from "react-router-dom";
 import { RootStateType } from "./Redux/State";
 import { FC } from "react";
 
@@ -16,10 +16,7 @@ type PropsTypes = {
 };
 
 export const App: FC<PropsTypes> = ({ state, dispatch }) => {
-  const {
-    profilePage: { posts, messageForNewPost },
-    dialogPage: { dialogs, messages, newMessageText },
-  } = state;
+  const { profilePage, dialogPage } = state;
 
   return (
     <BrowserRouter>
@@ -29,26 +26,28 @@ export const App: FC<PropsTypes> = ({ state, dispatch }) => {
           <Nav />
           <div className={"app-wrapper-content"}>
             <Route
-              path="/message/"
-              render={() => (
-                <Message
-                  messages={messages}
-                  dialogs={dialogs}
-                  dispatch={dispatch}
-                  newMessageText={newMessageText}
-                />
-              )}
+              path={"/"}
+              exact
+              render={() => <Redirect to={"/profile"} />}
             />
+
             <Route
               path="/profile/"
               render={() => (
-                <Profile
-                  posts={posts}
+                <Profile dispatch={dispatch} profilePage={profilePage} />
+              )}
+            />
+
+            <Route
+              path="/message/"
+              render={() => (
+                <Message
                   dispatch={dispatch}
-                  messageForNewPost={messageForNewPost}
+                  dialogPage={dialogPage}
                 />
               )}
             />
+
             <Route path="/news/" component={News} />
             <Route path="/music/" component={Music} />
             <Route path="/settings/" component={Settings} />
