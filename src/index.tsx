@@ -1,31 +1,23 @@
 import "./index.css";
-import state, {
-  addMessage,
-  addPost,
-  RootStateType,
-  subscribe,
-  updateNewMessageText,
-  updateNewPostText,
-} from "./components/Redux/State";
+import store from "./components/Redux/State";
 import ReactDOM from "react-dom";
 import React from "react";
 import App from "./App";
 
-let renderTree = (state: RootStateType) => {
+let renderTree = () => {
   ReactDOM.render(
     <React.StrictMode>
       <App
-        state={state}
-        addPost={addPost}
-        updateNewPostText={updateNewPostText}
-        addMessage={addMessage}
-        updateNewMessageText={updateNewMessageText}
+        state={store.getState()}
+        dispatch={store.dispatch.bind(store)}
+        updateNewMessageText={store.updateNewMessageText.bind(store)}
+        addMessage={store.addMessage.bind(store)}
       />
     </React.StrictMode>,
     document.getElementById("root")
   );
 };
 
-renderTree(state);
+renderTree();
 
-subscribe(renderTree);
+store.subscribe(renderTree);

@@ -12,18 +12,16 @@ import { FC } from "react";
 
 type PropsTypes = {
   state: RootStateType;
-  addPost: () => void;
   addMessage: () => void;
-  updateNewPostText: (newText: string) => void;
   updateNewMessageText: (newText: string) => void;
+  dispatch: (action: any) => void;
 };
 
 export const App: FC<PropsTypes> = ({
   state,
-  addPost,
-  updateNewPostText,
   addMessage,
   updateNewMessageText,
+  dispatch,
 }) => {
   const {
     profilePage: { posts, messageForNewPost },
@@ -54,9 +52,8 @@ export const App: FC<PropsTypes> = ({
               render={() => (
                 <Profile
                   posts={posts}
-                  addPost={addPost}
+                  dispatch={dispatch}
                   messageForNewPost={messageForNewPost}
-                  updateNewPostText={updateNewPostText}
                 />
               )}
             />
