@@ -7,7 +7,7 @@ import { Music } from "./components/Music/Music";
 import { Settings } from "./components/Settings/Settings";
 import { Profile } from "./components/Profile/Profile";
 import { BrowserRouter, Route } from "react-router-dom";
-import { RootStateType } from "./components/Redux/State";
+import { RootStateType } from "./Redux/State";
 import { FC } from "react";
 
 type PropsTypes = {

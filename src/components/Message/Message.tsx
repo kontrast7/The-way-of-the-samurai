@@ -7,7 +7,7 @@ import {
   DialogType,
   MessageType,
   onMessageChangeActionCreator,
-} from "../Redux/State";
+} from "../../Redux/State";
 
 type PropsType = {
   dialogs: Array<DialogType>;

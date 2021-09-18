@@ -10,6 +10,7 @@ export const Nav = () => {
           <img
             className={classes.icons}
             src="https://image.flaticon.com/icons/png/512/149/149452.png"
+            alt={'nav_icon'}
           />
           Profile
         </NavLink>
@@ -20,6 +21,7 @@ export const Nav = () => {
           <img
             className={classes.icons}
             src="https://image.flaticon.com/icons/png/512/134/134800.png"
+            alt={'nav_icon'}
           />
           Message
         </NavLink>
@@ -30,6 +32,7 @@ export const Nav = () => {
           <img
             className={classes.icons}
             src="https://image.flaticon.com/icons/png/512/149/149229.png"
+            alt={'nav_icon'}
           />
           News
         </NavLink>
@@ -40,6 +43,7 @@ export const Nav = () => {
           <img
             className={classes.icons}
             src="https://image.flaticon.com/icons/png/512/149/149103.png"
+            alt={'nav_icon'}
           />
           Music
         </NavLink>
@@ -50,6 +54,7 @@ export const Nav = () => {
           <img
             className={classes.icons}
             src="https://image.flaticon.com/icons/png/512/149/149293.png"
+            alt={'nav_icon'}
           />
           Settings
         </NavLink>
