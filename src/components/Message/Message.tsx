@@ -2,15 +2,12 @@ import React, { ChangeEvent, KeyboardEvent } from "react";
 import { DialogItem } from "./Dialog/Dialog";
 import s from "./Message.module.css";
 import { MessageItem } from "./MessageItem/MessageItem";
-import {
-  addMessageActionCreator, DialogPageType,
-  onMessageChangeActionCreator,
-} from "../../Redux/State";
+import {DialogPageType} from "../../Redux/State";
+import {addMessageActionCreator, DialogsReducerActionsType, onMessageChangeActionCreator} from "../../Redux/dialogsReducer";
 
 type PropsType = {
-  dispatch: (action: any) => void;
   dialogPage: DialogPageType
-
+  dispatch: (action: DialogsReducerActionsType) => void;
 };
 
 export const Message = (props: PropsType) => {

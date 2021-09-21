@@ -1,15 +1,16 @@
 import React, { ChangeEvent, KeyboardEvent } from "react";
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
+import { ProfilePageType } from "../../../Redux/State";
 import {
   addPostActionCreator,
   onPostChangeActionCreator,
-  ProfilePageType,
-} from "../../../Redux/State";
+  ProfileReducerActionsType,
+} from "../../../Redux/profileReducer";
 
 type PropsType = {
   profilePage: ProfilePageType;
-  dispatch: (action: any) => void;
+  dispatch: (action: ProfileReducerActionsType) => void;
 };
 
 export const MyPosts = (props: PropsType) => {
