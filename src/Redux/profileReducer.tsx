@@ -1,9 +1,29 @@
-import { PostsType, ProfilePageType } from "./State";
+import { PostsType, ProfilePageType } from "./Store";
 import { v1 } from "uuid";
 
+let initialState = {
+  messageForNewPost: "",
+  posts: [
+    {
+      id: v1(),
+      text: "VSIO",
+      likes: 10,
+    },
+    {
+      id: v1(),
+      text: "ZBS",
+      likes: 20,
+    },
+    {
+      id: v1(),
+      text: "OK",
+      likes: 2,
+    },
+  ],
+}
 
 const profileReducer = (
-  state: ProfilePageType,
+  state: ProfilePageType = initialState,
   action: ProfileReducerActionsType
 ) => {
   debugger;
