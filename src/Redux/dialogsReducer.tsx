@@ -1,13 +1,8 @@
 import {DialogPageType, MessageType} from "./State";
 import { v1 } from "uuid";
-/*
-const actionsNames = {
-  ADD_MESSAGE: "ADD_MESSAGE",
-  UPDATE_NEW_MESSAGE_TEXT: "UPDATE_NEW_MESSAGE_TEXT",
-};*/
+
 
 const dialogsReducer = (state: DialogPageType, action: DialogsReducerActionsType) => {
-  //?????
   switch (action.type) {
     case "ADD_MESSAGE":
       let newMessage: MessageType = {

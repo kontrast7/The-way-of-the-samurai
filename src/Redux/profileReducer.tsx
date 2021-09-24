@@ -2,14 +2,6 @@ import { PostsType, ProfilePageType } from "./State";
 import { v1 } from "uuid";
 
 
-/*
-const actionsNames = {
-  ADD_POST: "ADD_POST",
-  UPDATE_NEW_POST_TEXT: "UPDATE_NEW_POST_TEXT",
-};
-*/
-
-
 const profileReducer = (
   state: ProfilePageType,
   action: ProfileReducerActionsType
@@ -50,9 +42,8 @@ export type OnPostChangeActionCreatorType = {
 export const addPostActionCreator = (): AddPostActionCreatorType => ({
   type: "ADD_POST",
 });
-export const onPostChangeActionCreator = (
-  text: string
-): OnPostChangeActionCreatorType => {
+
+export const onPostChangeActionCreator = (text: string): OnPostChangeActionCreatorType => {
   return {
     type: "UPDATE_NEW_POST_TEXT",
     newPostText: text,
