@@ -2,16 +2,16 @@ import React, { ChangeEvent, KeyboardEvent } from "react";
 import { DialogItem } from "./Dialog/Dialog";
 import s from "./Message.module.css";
 import { MessageItem } from "./MessageItem/MessageItem";
-import {DialogPageType} from "../../Redux/Store";
-import {addMessageActionCreator, DialogsReducerActionsType, onMessageChangeActionCreator} from "../../Redux/dialogsReducer";
+import { DialogPageType } from "../../Redux/Store";
 
 type PropsType = {
-  dialogPage: DialogPageType
-  dispatch: (action: DialogsReducerActionsType) => void;
+  dialogPage: DialogPageType;
+  addMessage: () => void;
+  onMessageChange: (text: string) => void;
+  newMessageText: string;
 };
 
 export const Message = (props: PropsType) => {
-
   let dialogRender = props.dialogPage.dialogs.map((m) => {
     return <DialogItem dialog={m} />;
   });
@@ -20,18 +20,18 @@ export const Message = (props: PropsType) => {
     return <MessageItem messages={m} />;
   });
 
-  const addMessage = () => {
-    props.dispatch(addMessageActionCreator());
+  const onAddMessage = () => {
+    props.addMessage();
   };
 
   const onMessageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    let text = e.target.value;
-    props.dispatch(onMessageChangeActionCreator(text));
+    let text = e.currentTarget.value;
+    props.onMessageChange(text);
   };
 
   const onKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      addMessage();
+      onAddMessage();
     }
   };
 
@@ -39,11 +39,11 @@ export const Message = (props: PropsType) => {
     <div className={s.message}>
       <div className={s.dialog_items}>{dialogRender}</div>
       <div className={s.message_items}>{messageRender}</div>
-      <div></div>
+      <div />
       <div className={s.input_wrapper}>
         <input
           placeholder={"Enter your message..."}
-          value={props.dialogPage.newMessageText}
+          value={props.newMessageText}
           onChange={onMessageChange}
           onKeyPress={onKeyPress}
           className={s.input}
@@ -51,7 +51,7 @@ export const Message = (props: PropsType) => {
         <button
           className={s.add_message}
           onClick={() => {
-            addMessage();
+            onAddMessage();
           }}
         >
           Send

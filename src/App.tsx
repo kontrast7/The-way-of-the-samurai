@@ -1,5 +1,4 @@
 import "./App.css";
-import { Message } from "./components/Message/Message";
 import { Nav } from "./components/Nav/Nav";
 import { Header } from "./components/Header/Header";
 import { News } from "./components/News/News";
@@ -7,17 +6,15 @@ import { Music } from "./components/Music/Music";
 import { Settings } from "./components/Settings/Settings";
 import { Profile } from "./components/Profile/Profile";
 import { BrowserRouter, Redirect, Route } from "react-router-dom";
-import { RootStateType } from "./Redux/Store";
 import { FC } from "react";
+import { MessageContainer } from "./components/Message/MessageContainer";
 
 type PropsTypes = {
-  state: RootStateType;
-  dispatch: (action: any) => void;
+  /* store: Store;
+  dispatch: (action: RootActionsType) => void;*/
 };
 
-export const App: FC<PropsTypes> = ({ state, dispatch }) => {
-  const { profilePage, dialogPage } = state;
-
+export const App: FC<PropsTypes> = () => {
   return (
     <BrowserRouter>
       <div className={"app-bg"}>
@@ -31,22 +28,8 @@ export const App: FC<PropsTypes> = ({ state, dispatch }) => {
               render={() => <Redirect to={"/profile"} />}
             />
 
-            <Route
-              path="/profile/"
-              render={() => (
-                <Profile dispatch={dispatch} profilePage={profilePage} />
-              )}
-            />
-
-            <Route
-              path="/message/"
-              render={() => (
-                <Message
-                  dispatch={dispatch}
-                  dialogPage={dialogPage}
-                />
-              )}
-            />
+            <Route path="/profile/" render={() => <Profile />} />
+            <Route path="/message/" render={() => <MessageContainer />} />
 
             <Route path="/news/" component={News} />
             <Route path="/music/" component={Music} />

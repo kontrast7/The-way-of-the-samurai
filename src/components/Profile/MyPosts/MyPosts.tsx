@@ -1,37 +1,33 @@
 import React, { ChangeEvent, KeyboardEvent } from "react";
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
-import { ProfilePageType } from "../../../Redux/Store";
-import {
-  addPostActionCreator,
-  onPostChangeActionCreator,
-  ProfileReducerActionsType,
-} from "../../../Redux/profileReducer";
+import {PostsType} from "../../../Redux/Store";
 
 type PropsType = {
-  profilePage: ProfilePageType;
-  dispatch: (action: ProfileReducerActionsType) => void;
+  posts: Array<PostsType>;
+  updateNewPostText:(text:string)=>void;
+  addPost:()=>void;
+  newPostText: string;
 };
 
+
 export const MyPosts = (props: PropsType) => {
-  let postsRender = props.profilePage.posts.map((m) => (
+  let postsRender = props.posts.map(m => (
     <Post key={m.id} text={m.text} likes={m.likes} />
   ));
 
-  const addPost = () => {
-    if (props.profilePage.messageForNewPost.trim() !== "") {
-      props.dispatch(addPostActionCreator());
-    }
+  const onAddPost = () => {
+    props.addPost();
   };
 
   const onPostChange = (e: ChangeEvent<HTMLInputElement>) => {
     let text = e.currentTarget.value;
-    props.dispatch(onPostChangeActionCreator(text));
+    props.updateNewPostText(text)
   };
 
   const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      addPost();
+      onAddPost();
     }
   };
 
@@ -43,7 +39,7 @@ export const MyPosts = (props: PropsType) => {
           <input
             placeholder={"Enter your post..."}
             className={s.textarea}
-            value={props.profilePage.messageForNewPost}
+            value={props.newPostText}
             onChange={onPostChange}
             onKeyPress={onKeyPressHandler}
           />
@@ -52,7 +48,7 @@ export const MyPosts = (props: PropsType) => {
           <button
             className={s.add_post}
             onClick={() => {
-              addPost();
+              onAddPost();
             }}
           >
             Add post
