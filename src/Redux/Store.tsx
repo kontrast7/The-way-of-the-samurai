@@ -39,9 +39,7 @@ export type StoreType = {
 	dispatch: (action: RootActionsType) => void;
 };
 
-export type RootActionsType =
-	| ProfileReducerActionsType
-	| DialogsReducerActionsType
+export type RootActionsType = | ProfileReducerActionsType | DialogsReducerActionsType
 
 let store: StoreType = {
 	_state: {

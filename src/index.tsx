@@ -1,9 +1,9 @@
+import React from "react";
+import App from "./App";
 import "./index.css";
 import store from "./Redux/ReduxStore";
 import ReactDOM from "react-dom";
-import React from "react";
-import App from "./App";
-import { Provider } from "./StoreContext";
+import { Provider } from "react-redux";
 
 let renderAllTree = () => {
   ReactDOM.render(

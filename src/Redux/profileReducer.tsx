@@ -20,27 +20,27 @@ let initialState = {
       likes: 2,
     },
   ],
-}
+};
 
 const profileReducer = (
   state: ProfilePageType = initialState,
   action: ProfileReducerActionsType
 ) => {
-  debugger;
+  let stateCopy = { ...state };
   switch (action.type) {
-    case "UPDATE_NEW_POST_TEXT":
-      state.messageForNewPost = action.newPostText;
-      return state;
-
     case "ADD_POST":
       let newPost: PostsType = {
         id: v1(),
         text: state.messageForNewPost,
         likes: 0,
       };
-      state.posts.unshift(newPost);
-      state.messageForNewPost = "";
-      return state;
+      stateCopy.posts = [...state.posts];
+      stateCopy.posts.unshift(newPost);
+      stateCopy.messageForNewPost = "";
+      return stateCopy;
+
+    case "UPDATE_NEW_POST_TEXT":
+      return { ...state, messageForNewPost: action.newPostText };
 
     default:
       return state;
@@ -51,23 +51,18 @@ export type ProfileReducerActionsType =
   | AddPostActionCreatorType
   | OnPostChangeActionCreatorType;
 
-export type AddPostActionCreatorType = {
-  type: "ADD_POST";
-};
-export type OnPostChangeActionCreatorType = {
-  type: "UPDATE_NEW_POST_TEXT";
-  newPostText: string;
-};
+export type AddPostActionCreatorType = ReturnType<typeof addPostActionCreator>;
+export type OnPostChangeActionCreatorType = ReturnType<
+  typeof onPostChangeActionCreator
+>;
 
-export const addPostActionCreator = (): AddPostActionCreatorType => ({
-  type: "ADD_POST",
-});
+export const addPostActionCreator = () => ({ type: "ADD_POST" } as const);
 
-export const onPostChangeActionCreator = (text: string): OnPostChangeActionCreatorType => {
+export const onPostChangeActionCreator = (text: string) => {
   return {
     type: "UPDATE_NEW_POST_TEXT",
     newPostText: text,
-  };
+  } as const;
 };
 
 export default profileReducer;

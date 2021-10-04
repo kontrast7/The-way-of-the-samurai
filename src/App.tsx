@@ -7,7 +7,7 @@ import { Settings } from "./components/Settings/Settings";
 import { Profile } from "./components/Profile/Profile";
 import { BrowserRouter, Redirect, Route } from "react-router-dom";
 import { FC } from "react";
-import { MessageContainer } from "./components/Message/MessageContainer";
+import MessageContainer from "./components/Message/MessageContainer";
 
 type PropsTypes = {
   /* store: Store;
