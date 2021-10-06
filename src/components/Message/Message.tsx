@@ -13,11 +13,11 @@ type PropsType = {
 
 export const Message = (props: PropsType) => {
   let dialogRender = props.dialogPage.dialogs.map((m) => {
-    return <DialogItem dialog={m} />;
+    return <DialogItem key={m.id} dialog={m} />;
   });
 
   let messageRender = props.dialogPage.messages.map((m) => {
-    return <MessageItem messages={m} />;
+    return <MessageItem key={m.id} messages={m} />;
   });
 
   const onAddMessage = () => {

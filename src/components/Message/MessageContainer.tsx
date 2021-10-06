@@ -5,6 +5,7 @@ import {
 import { Message } from "./Message";
 import { connect } from "react-redux";
 import {AppStateType} from "../../Redux/ReduxStore";
+import {Dispatch} from "redux";
 
 
 type MapDispatchToPropsPropsType = {
@@ -19,7 +20,7 @@ let mapStateToProps = (state: AppStateType) => {
   };
 };
 
-let mapDispatchToProps = (dispatch: any): MapDispatchToPropsPropsType => {
+let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsPropsType => {
   return {
     addMessage: () => {
       dispatch(addMessageActionCreator());

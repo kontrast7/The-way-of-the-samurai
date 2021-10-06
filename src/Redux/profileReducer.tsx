@@ -1,21 +1,20 @@
 import { PostsType, ProfilePageType } from "./Store";
-import { v1 } from "uuid";
 
 let initialState = {
   messageForNewPost: "",
   posts: [
     {
-      id: v1(),
+      id: 1,
       text: "VSIO",
       likes: 10,
     },
     {
-      id: v1(),
+      id: 2,
       text: "ZBS",
       likes: 20,
     },
     {
-      id: v1(),
+      id: 3,
       text: "OK",
       likes: 2,
     },
@@ -30,7 +29,7 @@ const profileReducer = (
   switch (action.type) {
     case "ADD_POST":
       let newPost: PostsType = {
-        id: v1(),
+        id: 4,
         text: state.messageForNewPost,
         likes: 0,
       };
@@ -38,26 +37,19 @@ const profileReducer = (
       stateCopy.posts.unshift(newPost);
       stateCopy.messageForNewPost = "";
       return stateCopy;
-
     case "UPDATE_NEW_POST_TEXT":
       return { ...state, messageForNewPost: action.newPostText };
-
     default:
       return state;
   }
 };
 
-export type ProfileReducerActionsType =
-  | AddPostActionCreatorType
-  | OnPostChangeActionCreatorType;
+export type ProfileReducerActionsType = | AddPostActionCreatorType | OnPostChangeActionCreatorType;
 
 export type AddPostActionCreatorType = ReturnType<typeof addPostActionCreator>;
-export type OnPostChangeActionCreatorType = ReturnType<
-  typeof onPostChangeActionCreator
->;
+export type OnPostChangeActionCreatorType = ReturnType<typeof onPostChangeActionCreator>;
 
 export const addPostActionCreator = () => ({ type: "ADD_POST" } as const);
-
 export const onPostChangeActionCreator = (text: string) => {
   return {
     type: "UPDATE_NEW_POST_TEXT",

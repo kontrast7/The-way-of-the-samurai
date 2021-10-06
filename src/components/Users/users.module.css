@@ -1,0 +1,59 @@
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+.wrapperItems {
+  display: flex;
+  margin-bottom: 43px;
+  margin-right: 30px;
+}
+
+.btnUnf {
+  min-width: 100px;
+  font-family: inherit;
+  appearance: none;
+  border: 0;
+  border-radius: 5px;
+  background: #f44336;
+  color: #fff;
+  padding: 5px 9px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btnFoll {
+  min-width: 100px;
+  font-family: inherit;
+  appearance: none;
+  border: 0;
+  border-radius: 5px;
+  background: #1975d2;
+  color: #fff;
+  padding: 5px 9px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.userInfo {
+  display: flex;
+  margin-left: 20px;
+  flex-direction: column;
+}
+
+.name {
+  font-family: inherit;
+  color: #1975d2;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.location {
+  font-family: inherit;
+  font-size: 1rem;
+}

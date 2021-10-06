@@ -6,15 +6,12 @@ import { Music } from "./components/Music/Music";
 import { Settings } from "./components/Settings/Settings";
 import { Profile } from "./components/Profile/Profile";
 import { BrowserRouter, Redirect, Route } from "react-router-dom";
-import { FC } from "react";
 import MessageContainer from "./components/Message/MessageContainer";
+import {UsersContainer} from "./components/Users/UsersContainer";
 
-type PropsTypes = {
-  /* store: Store;
-  dispatch: (action: RootActionsType) => void;*/
-};
 
-export const App: FC<PropsTypes> = () => {
+
+export const App = () => {
   return (
     <BrowserRouter>
       <div className={"app-bg"}>
@@ -22,14 +19,11 @@ export const App: FC<PropsTypes> = () => {
         <div className={"app-wrapper"}>
           <Nav />
           <div className={"app-wrapper-content"}>
-            <Route
-              path={"/"}
-              exact
-              render={() => <Redirect to={"/profile"} />}
-            />
+            <Route path={"/"} exact render={() => <Redirect to={"/profile"} />}/>
 
             <Route path="/profile/" render={() => <Profile />} />
             <Route path="/message/" render={() => <MessageContainer />} />
+            <Route path="/users/" render={() => <UsersContainer />} />
 
             <Route path="/news/" component={News} />
             <Route path="/music/" component={Music} />
