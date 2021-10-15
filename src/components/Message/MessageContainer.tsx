@@ -4,14 +4,13 @@ import {
 } from "../../Redux/dialogsReducer";
 import { Message } from "./Message";
 import { connect } from "react-redux";
-import {AppStateType} from "../../Redux/ReduxStore";
-import {Dispatch} from "redux";
-
+import { AppStateType } from "../../Redux/ReduxStore";
+import { Dispatch } from "redux";
 
 type MapDispatchToPropsPropsType = {
-  addMessage: ()=> void,
-  onMessageChange: (text: string)=> void,
-}
+  addMessage: () => void;
+  onMessageChange: (text: string) => void;
+};
 
 let mapStateToProps = (state: AppStateType) => {
   return {

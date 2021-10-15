@@ -16,9 +16,9 @@ export const Message = (props: PropsType) => {
     return <DialogItem key={m.id} dialog={m} />;
   });
 
-  let messageRender = props.dialogPage.messages.map((m) => {
-    return <MessageItem key={m.id} messages={m} />;
-  });
+  let messageRender = props.dialogPage.messages.map((m) =>
+    <MessageItem key={m.id} messages={m} />
+  );
 
   const onAddMessage = () => {
     props.addMessage();
@@ -29,11 +29,7 @@ export const Message = (props: PropsType) => {
     props.onMessageChange(text);
   };
 
-  const onKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      onAddMessage();
-    }
-  };
+  const onKeyPress = (e: KeyboardEvent<HTMLInputElement>) => e.key === "Enter" && onAddMessage();
 
   return (
     <div className={s.message}>

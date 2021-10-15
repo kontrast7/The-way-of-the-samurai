@@ -14,6 +14,6 @@ ReactDOM.render(
 );
 };
 
-renderAllTree();
-
 store.subscribe(renderAllTree);
+
+renderAllTree();

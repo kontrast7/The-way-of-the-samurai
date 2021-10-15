@@ -55,10 +55,7 @@ let initialState = {
   ],
 };
 
-const dialogsReducer = (
-  state: DialogPageType = initialState,
-  action: DialogsReducerActionsType
-) => {
+const dialogsReducer = (state: DialogPageType = initialState, action: DialogsReducerActionsType) => {
   switch (action.type) {
     case "UPDATE_NEW_MESSAGE_TEXT":
       return {
