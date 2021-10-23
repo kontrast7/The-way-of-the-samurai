@@ -1,4 +1,15 @@
-import { PostsType, ProfilePageType } from "./Store";
+import { ProfileResponseType } from "../components/Profile/ProfileContainer";
+
+export type PostsType = {
+  id?: number;
+  text: string;
+  likes: number;
+};
+export type ProfilePageType = {
+  messageForNewPost: string;
+  posts: Array<PostsType>;
+  profile: ProfileResponseType | null
+};
 
 let initialState = {
   messageForNewPost: "",
@@ -19,6 +30,7 @@ let initialState = {
       likes: 2,
     },
   ],
+  profile: null,
 };
 
 const profileReducer = (
@@ -39,21 +51,37 @@ const profileReducer = (
       return stateCopy;
     case "UPDATE_NEW_POST_TEXT":
       return { ...state, messageForNewPost: action.newPostText };
+    case "SET_USER_PROFILE": {
+      console.log(action.profile);
+      return { ...state, profile: action.profile };
+    }
     default:
       return state;
   }
 };
 
-export type ProfileReducerActionsType = | AddPostActionCreatorType | OnPostChangeActionCreatorType;
+export type ProfileReducerActionsType =
+  | AddPostActionCreatorType
+  | OnPostChangeActionCreatorType
+  | setUserProfileType;
 
 export type AddPostActionCreatorType = ReturnType<typeof addPostActionCreator>;
-export type OnPostChangeActionCreatorType = ReturnType<typeof onPostChangeActionCreator>;
+export type OnPostChangeActionCreatorType = ReturnType<
+  typeof onPostChangeActionCreator
+>;
+export type setUserProfileType = ReturnType<typeof setUserProfile>;
 
 export const addPostActionCreator = () => ({ type: "ADD_POST" } as const);
 export const onPostChangeActionCreator = (text: string) => {
   return {
     type: "UPDATE_NEW_POST_TEXT",
     newPostText: text,
+  } as const;
+};
+export const setUserProfile = (profile: ProfileResponseType) => {
+  return {
+    type: "SET_USER_PROFILE",
+    profile,
   } as const;
 };
 

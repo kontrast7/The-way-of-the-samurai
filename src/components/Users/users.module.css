@@ -59,3 +59,18 @@
   font-family: inherit;
   font-size: 1rem;
 }
+
+.selectedPage {
+  font-weight: bold;
+  padding-right: 5px;
+}
+
+.notSelectedPage {
+  padding-right: 5px;
+}
+
+.pageNumbers {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}

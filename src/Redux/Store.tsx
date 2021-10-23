@@ -1,5 +1,6 @@
 import profileReducer, {ProfileReducerActionsType,} from "./profileReducer";
 import dialogsReducer, {DialogsReducerActionsType,} from "./dialogsReducer";
+import {ProfileResponseType} from '../components/Profile/ProfileContainer';
 
 export type MessageType = {
 	id?: number;
@@ -19,6 +20,7 @@ export type PostsType = {
 export type ProfilePageType = {
 	messageForNewPost: string;
 	posts: Array<PostsType>;
+	profile: ProfileResponseType | null
 };
 export type DialogPageType = {
 	dialogs: Array<DialogType>;
@@ -61,6 +63,7 @@ let store: StoreType = {
 					likes: 2,
 				},
 			],
+			profile: null
 		},
 		dialogPage: {
 			newMessageText: "",

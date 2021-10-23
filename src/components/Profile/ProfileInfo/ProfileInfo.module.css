@@ -15,3 +15,28 @@
 .avatar_block {
   grid-area: foto;
 }
+
+.jobsDiv {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.name {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.aboutMe {
+  margin-top: 0;
+}
+
+.link {
+  text-decoration: none;
+  color: #323232;
+}
+
+.link:hover {
+  text-decoration: none;
+  color: #1085dc;
+}

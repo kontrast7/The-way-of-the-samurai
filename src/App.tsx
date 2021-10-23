@@ -4,12 +4,10 @@ import { Header } from "./components/Header/Header";
 import { News } from "./components/News/News";
 import { Music } from "./components/Music/Music";
 import { Settings } from "./components/Settings/Settings";
-import { Profile } from "./components/Profile/Profile";
 import { BrowserRouter, Redirect, Route } from "react-router-dom";
 import MessageContainer from "./components/Message/MessageContainer";
-import {UsersContainer} from "./components/Users/UsersContainer";
-
-
+import UsersContainer from "./components/Users/UsersContainer";
+import ProfileContainer from './components/Profile/ProfileContainer';
 
 export const App = () => {
   return (
@@ -19,9 +17,13 @@ export const App = () => {
         <div className={"app-wrapper"}>
           <Nav />
           <div className={"app-wrapper-content"}>
-            <Route path={"/"} exact render={() => <Redirect to={"/profile"} />}/>
+            <Route
+              path={"/"}
+              exact
+              render={() => <Redirect to={"/profile"} />}
+            />
 
-            <Route path="/profile/" render={() => <Profile />} />
+            <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
             <Route path="/message/" render={() => <MessageContainer />} />
             <Route path="/users/" render={() => <UsersContainer />} />
 
