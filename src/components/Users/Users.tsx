@@ -3,7 +3,8 @@ import s from "./users.module.css";
 import avatar from "../../assets/noAvatar.jpg";
 import { userType } from "../../Redux/usersReducer";
 import { NavLink } from "react-router-dom";
-import {v1} from 'uuid';
+import { v1 } from "uuid";
+import { followAxios, unFollowAxios } from "../Api/Api";
 
 type propsType = {
   onPageChange: (pageNumber: number) => void;
@@ -13,6 +14,8 @@ type propsType = {
   users: Array<userType>;
   unFollow: (id: number) => void;
   follow: (id: number) => void;
+  toggleIsFollowing: (isFetching: boolean, userId: number) => void;
+  followingInProgress: Array<number>;
 };
 
 export let Users = (props: propsType) => {
@@ -25,16 +28,19 @@ export let Users = (props: propsType) => {
   return (
     <div key={v1()} className={s.wrapper}>
       <div className={s.pageNumbers}>
-      {pages.map((p) => {
-        return (
-          <span
-            onClick={() => props.onPageChange(p)}
-            className={props.currentPage === p ? s.selectedPage : s.notSelectedPage}
-          >
-            {p}
-          </span>
-        );
-      })}
+        {pages.map((p) => {
+          return (
+            <span
+              key={v1()}
+              onClick={() => props.onPageChange(p)}
+              className={
+                props.currentPage === p ? s.selectedPage : s.notSelectedPage
+              }
+            >
+              {p}
+            </span>
+          );
+        })}
       </div>
       {props.users.map((m) => {
         return (
@@ -42,25 +48,43 @@ export let Users = (props: propsType) => {
             <div className={s.userImgAndBtnWrapper}>
               <div>
                 <NavLink to={`/profile/${m.id}`}>
-                <img
-                  className={s.avatar}
-                  src={m.photos.small !== null ? m.photos.small : avatar}
-                  alt={m.name}
-                />
+                  <img
+                    className={s.avatar}
+                    src={m.photos.small !== null ? m.photos.small : avatar}
+                    alt={m.name}
+                  />
                 </NavLink>
               </div>
 
               {m.followed ? (
                 <button
+                  disabled={props.followingInProgress.some((id) => id === m.id)}
                   className={s.btnUnf}
-                  onClick={() => props.unFollow(m.id)}
+                  onClick={() => {
+                    props.toggleIsFollowing(true, m.id);
+                    return unFollowAxios(m.id).then((response) => {
+                      if (response.resultCode === 0) {
+                        props.unFollow(m.id);
+                      }
+                      props.toggleIsFollowing(false, m.id);
+                    });
+                  }}
                 >
                   Un follow
                 </button>
               ) : (
                 <button
+                  disabled={props.followingInProgress.some((id) => id === m.id)}
                   className={s.btnFoll}
-                  onClick={() => props.follow(m.id)}
+                  onClick={() => {
+                    props.toggleIsFollowing(true, m.id);
+                    return followAxios(m.id).then((response) => {
+                      if (response.resultCode === 0) {
+                        props.follow(m.id);
+                      }
+                      props.toggleIsFollowing(false, m.id);
+                    });
+                  }}
                 >
                   Follow
                 </button>

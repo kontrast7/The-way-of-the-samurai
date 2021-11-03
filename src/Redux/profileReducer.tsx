@@ -1,4 +1,4 @@
-import { ProfileResponseType } from "../components/Profile/ProfileContainer";
+import { ProfileResponseType } from "../components/Api/Api";
 
 export type PostsType = {
   id?: number;
@@ -8,7 +8,7 @@ export type PostsType = {
 export type ProfilePageType = {
   messageForNewPost: string;
   posts: Array<PostsType>;
-  profile: ProfileResponseType | null
+  profile: ProfileResponseType | null;
 };
 
 let initialState = {
@@ -52,7 +52,6 @@ const profileReducer = (
     case "UPDATE_NEW_POST_TEXT":
       return { ...state, messageForNewPost: action.newPostText };
     case "SET_USER_PROFILE": {
-      console.log(action.profile);
       return { ...state, profile: action.profile };
     }
     default:

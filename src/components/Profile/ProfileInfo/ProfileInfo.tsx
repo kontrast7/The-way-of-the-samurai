@@ -1,9 +1,9 @@
 import React from "react";
 import s from "./ProfileInfo.module.css";
-import { ProfileResponseType } from "../ProfileContainer";
 import { Preloader } from "../../common/Preloader/Preloader";
 import yes from "../../../assets/profileInfo/yes.png";
 import no from "../../../assets/profileInfo/no.png";
+import { ProfileResponseType } from "../../Api/Api";
 
 export type PropsType = {
   profile: ProfileResponseType | null;

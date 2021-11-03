@@ -1,19 +1,19 @@
 import "./App.css";
 import { Nav } from "./components/Nav/Nav";
-import { Header } from "./components/Header/Header";
 import { News } from "./components/News/News";
 import { Music } from "./components/Music/Music";
 import { Settings } from "./components/Settings/Settings";
 import { BrowserRouter, Redirect, Route } from "react-router-dom";
 import MessageContainer from "./components/Message/MessageContainer";
 import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from './components/Profile/ProfileContainer';
+import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 export const App = () => {
   return (
     <BrowserRouter>
       <div className={"app-bg"}>
-        <Header />
+        <HeaderContainer />
         <div className={"app-wrapper"}>
           <Nav />
           <div className={"app-wrapper-content"}>
@@ -23,7 +23,10 @@ export const App = () => {
               render={() => <Redirect to={"/profile"} />}
             />
 
-            <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
+            <Route
+              path="/profile/:userId?"
+              render={() => <ProfileContainer />}
+            />
             <Route path="/message/" render={() => <MessageContainer />} />
             <Route path="/users/" render={() => <UsersContainer />} />
 
