@@ -89,7 +89,6 @@ export const followAxios = (id: number) => {
       .then((response) => {
         return response.data;
       });
-
 };
 
 export const authMe = () => {

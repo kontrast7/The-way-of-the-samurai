@@ -16,6 +16,7 @@ let mapStateToProps = (state: AppStateType) => {
   return {
     dialogPage: state.dialogPage,
     newMessageText: state.dialogPage.newMessageText,
+    isAuth: state.auth.isAuth
   };
 };
 

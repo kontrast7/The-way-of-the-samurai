@@ -1,4 +1,4 @@
-import { ProfileResponseType } from "../components/Api/Api";
+import { getProfileInfo, ProfileResponseType } from "../components/Api/Api";
 
 export type PostsType = {
   id?: number;
@@ -82,6 +82,12 @@ export const setUserProfile = (profile: ProfileResponseType) => {
     type: "SET_USER_PROFILE",
     profile,
   } as const;
+};
+
+export const getProfileInfoThunk = (userId: string) => (dispatch: any) => {
+  getProfileInfo(userId).then((data) => {
+    dispatch(setUserProfile(data));
+  });
 };
 
 export default profileReducer;

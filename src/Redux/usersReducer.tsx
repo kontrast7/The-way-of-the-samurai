@@ -1,3 +1,5 @@
+import { followAxios, getUsers, unFollowAxios } from "../components/Api/Api";
+
 export type photosType = {
   small: string | null;
   large: string | null;
@@ -18,6 +20,22 @@ export type initialStateType = {
   isFetching: boolean;
   followingInProgress: Array<number>;
 };
+export type allTypes =
+  | followACType
+  | unFollowACType
+  | setUserACType
+  | setCurrentPageACType
+  | setTotalUsersCountACType
+  | toggleIsFetchingACType
+  | toggleIsFollowingACType;
+
+export type followACType = ReturnType<typeof follow>;
+export type unFollowACType = ReturnType<typeof unFollow>;
+export type setUserACType = ReturnType<typeof setUser>;
+export type setCurrentPageACType = ReturnType<typeof setCurrentPage>;
+export type setTotalUsersCountACType = ReturnType<typeof setTotalUsersCount>;
+export type toggleIsFetchingACType = ReturnType<typeof toggleIsFetching>;
+export type toggleIsFollowingACType = ReturnType<typeof toggleIsFollowing>;
 
 let initialState: initialStateType = {
   users: [],
@@ -73,22 +91,6 @@ export const usersReducer = (
       return state;
   }
 };
-export type allTypes =
-  | followACType
-  | unFollowACType
-  | setUserACType
-  | setCurrentPageACType
-  | setTotalUsersCountACType
-  | toggleIsFetchingACType
-  | toggleIsFollowingACType;
-
-export type followACType = ReturnType<typeof follow>;
-export type unFollowACType = ReturnType<typeof unFollow>;
-export type setUserACType = ReturnType<typeof setUser>;
-export type setCurrentPageACType = ReturnType<typeof setCurrentPage>;
-export type setTotalUsersCountACType = ReturnType<typeof setTotalUsersCount>;
-export type toggleIsFetchingACType = ReturnType<typeof toggleIsFetching>;
-export type toggleIsFollowingACType = ReturnType<typeof toggleIsFollowing>;
 
 export const follow = (userID: number) => ({ type: "FOLLOW", userID } as const);
 export const unFollow = (userID: number) =>
@@ -103,3 +105,38 @@ export const toggleIsFetching = (isFetching: boolean) =>
   ({ type: "TOGGLE_IS_FETCHING", isFetching } as const);
 export const toggleIsFollowing = (isFetching: boolean, userId: number) =>
   ({ type: "TOGGLE_IS_FOLLOWING", isFetching, userId } as const);
+
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+  return (dispatch: any) => {
+    dispatch(toggleIsFetching(true));
+    getUsers(currentPage, pageSize).then((data) => {
+      dispatch(toggleIsFetching(false));
+      dispatch(setUser(data.items));
+      dispatch(setTotalUsersCount(30 || data.totalCount));
+    });
+  };
+};
+
+export const unFollowThunkCreator = (id: number) => {
+  return (dispatch: any) => {
+    dispatch(toggleIsFollowing(true, id));
+    return unFollowAxios(id).then((response) => {
+      if (response.resultCode === 0) {
+        dispatch(unFollow(id));
+      }
+      dispatch(toggleIsFollowing(false, id));
+    });
+  };
+};
+
+export const followThunkCreator = (id: number) => {
+  return (dispatch: any) => {
+    dispatch(toggleIsFollowing(true, id));
+    return followAxios(id).then((response) => {
+      if (response.resultCode === 0) {
+        dispatch(follow(id));
+      }
+      dispatch(toggleIsFollowing(false, id));
+    });
+  };
+};

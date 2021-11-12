@@ -1,14 +1,16 @@
+import { authMe } from "../components/Api/Api";
+
 export type initialStateType = {
   id: number | null;
   email: string | null;
   login: string | null;
-  isAuth: boolean
+  isAuth: boolean;
 };
 let initialState: initialStateType = {
   id: null,
   email: null,
   login: null,
-  isAuth: false
+  isAuth: false,
 };
 
 export const authReducer = (
@@ -30,4 +32,13 @@ export const setAuthUserData = (id: number, email: string, login: string) => {
     type: "SET_USER_DATA",
     data: { id, email, login },
   };
+};
+
+export const authMeThunk = () => (dispatch: any) => {
+  authMe().then((response) => {
+    if (response.resultCode === 0) {
+      let { id, email, login } = response.data;
+      dispatch(setAuthUserData(id, email, login));
+    }
+  });
 };

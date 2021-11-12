@@ -3,12 +3,14 @@ import { DialogItem } from "./Dialog/Dialog";
 import s from "./Message.module.css";
 import { MessageItem } from "./MessageItem/MessageItem";
 import { DialogPageType } from "../../Redux/Store";
+import { Redirect } from "react-router-dom";
 
 type PropsType = {
   dialogPage: DialogPageType;
   addMessage: () => void;
   onMessageChange: (text: string) => void;
   newMessageText: string;
+  isAuth: boolean;
 };
 
 export const Message = (props: PropsType) => {
@@ -16,9 +18,9 @@ export const Message = (props: PropsType) => {
     return <DialogItem key={m.id} dialog={m} />;
   });
 
-  let messageRender = props.dialogPage.messages.map((m) =>
+  let messageRender = props.dialogPage.messages.map((m) => (
     <MessageItem key={m.id} messages={m} />
-  );
+  ));
 
   const onAddMessage = () => {
     props.addMessage();
@@ -29,7 +31,12 @@ export const Message = (props: PropsType) => {
     props.onMessageChange(text);
   };
 
-  const onKeyPress = (e: KeyboardEvent<HTMLInputElement>) => e.key === "Enter" && onAddMessage();
+  const onKeyPress = (e: KeyboardEvent<HTMLInputElement>) =>
+    e.key === "Enter" && onAddMessage();
+
+  if (!props.isAuth) {
+    return <Redirect to={"/login"} />;
+  }
 
   return (
     <div className={s.message}>

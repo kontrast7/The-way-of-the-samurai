@@ -4,7 +4,6 @@ import avatar from "../../assets/noAvatar.jpg";
 import { userType } from "../../Redux/usersReducer";
 import { NavLink } from "react-router-dom";
 import { v1 } from "uuid";
-import { followAxios, unFollowAxios } from "../Api/Api";
 
 type propsType = {
   onPageChange: (pageNumber: number) => void;
@@ -16,6 +15,8 @@ type propsType = {
   follow: (id: number) => void;
   toggleIsFollowing: (isFetching: boolean, userId: number) => void;
   followingInProgress: Array<number>;
+  unFollowThunkCreator: (id: number) => void;
+  followThunkCreator: (id: number) => void;
 };
 
 export let Users = (props: propsType) => {
@@ -61,13 +62,14 @@ export let Users = (props: propsType) => {
                   disabled={props.followingInProgress.some((id) => id === m.id)}
                   className={s.btnUnf}
                   onClick={() => {
-                    props.toggleIsFollowing(true, m.id);
-                    return unFollowAxios(m.id).then((response) => {
-                      if (response.resultCode === 0) {
-                        props.unFollow(m.id);
-                      }
-                      props.toggleIsFollowing(false, m.id);
-                    });
+                    // props.toggleIsFollowing(true, m.id);
+                    // return unFollowAxios(m.id).then((response) => {
+                    //   if (response.resultCode === 0) {
+                    //     props.unFollow(m.id);
+                    //   }
+                    //   props.toggleIsFollowing(false, m.id);
+                    // });
+                    props.unFollowThunkCreator(m.id);
                   }}
                 >
                   Un follow
@@ -77,13 +79,14 @@ export let Users = (props: propsType) => {
                   disabled={props.followingInProgress.some((id) => id === m.id)}
                   className={s.btnFoll}
                   onClick={() => {
-                    props.toggleIsFollowing(true, m.id);
-                    return followAxios(m.id).then((response) => {
-                      if (response.resultCode === 0) {
-                        props.follow(m.id);
-                      }
-                      props.toggleIsFollowing(false, m.id);
-                    });
+                    // props.toggleIsFollowing(true, m.id);
+                    // return followAxios(m.id).then((response) => {
+                    //   if (response.resultCode === 0) {
+                    //     props.follow(m.id);
+                    //   }
+                    //   props.toggleIsFollowing(false, m.id);
+                    // });
+                    props.followThunkCreator(m.id);
                   }}
                 >
                   Follow
