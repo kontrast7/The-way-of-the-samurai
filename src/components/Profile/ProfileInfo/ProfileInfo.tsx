@@ -4,6 +4,7 @@ import { Preloader } from "../../common/Preloader/Preloader";
 import yes from "../../../assets/profileInfo/yes.png";
 import no from "../../../assets/profileInfo/no.png";
 import { ProfileResponseType } from "../../Api/Api";
+import { ProfileStatus } from "./ProfileStatus";
 
 export type PropsType = {
   profile: ProfileResponseType | null;
@@ -25,11 +26,14 @@ export const ProfileInfo = (props: PropsType) => {
           alt={"avatar"}
         />
       </div>
+      
 
       <div className={s.description}>
         <h2 className={s.name}>{props.profile.fullName}</h2>
         <h4 className={s.aboutMe}>{props.profile.aboutMe}</h4>
-
+        
+        <ProfileStatus status={'111'}/>
+        
         <div>
           {props.profile.contacts.vk ? (
             <a className={s.link} href={`https://${props.profile.contacts.vk}`}>
